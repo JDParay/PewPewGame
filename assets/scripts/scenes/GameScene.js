@@ -15,6 +15,7 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.survivalTime = 0;
     this.background = this.add.tileSprite(550, 300, 1100, 600, "background");
     this.player = this.physics.add.sprite(550, 600, 'player').setCollideWorldBounds(true).setScale(0.8);
     this.player.setSize(200, 90); 
@@ -52,6 +53,7 @@ class GameScene extends Phaser.Scene {
     this.handleShooting(time);
     this.spawnObstacles(delta, time);
     this.survivalTime += delta;
+    this.registry.events.emit('timeUpdated', this.survivalTime / 1000);
     this.quickFinish();
   }
 
